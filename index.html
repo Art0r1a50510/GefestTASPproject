@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Habitat 3D Editor</title>
+    <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+    <!-- Контейнер для Three.js сцены -->
+    <div id="container"></div>
+    
+    <!-- Обновленная панель инструментов -->
+    <div id="toolbar">
+        <button id="modulesBtn" class="toolbar-btn">Modules</button>
+        
+        <!-- Панель библиотеки модулей (появляется на месте кнопки) -->
+        <div id="modulesLibrary" class="modules-panel">
+            <div class="panel-header">
+                <h3>Space Station Modules</h3>
+                <button id="closeLibrary" class="close-btn">×</button>
+            </div>
+            
+            <div class="library-content">
+                <div class="modules-grid">
+                    <!-- Preset Modules -->
+                    <div class="module-item" data-module-type="a1preset">
+                        <div class="module-name">A1 Preset</div>
+                    </div>
+                    <div class="module-item" data-module-type="a2preset">
+                        <div class="module-name">A2 Preset</div>
+                    </div>
+                    <div class="module-item" data-module-type="a3preset">
+                        <div class="module-name">A3 Preset</div>
+                    </div>
+                    
+                    <!-- Structural Blocks -->
+                    <div class="module-item" data-module-type="a1light">
+                        <div class="module-name">A1 Light Block</div>
+                    </div>
+                    <div class="module-item" data-module-type="a2long">
+                        <div class="module-name">A2 Long Block</div>
+                    </div>
+                    <div class="module-item" data-module-type="a4medium">
+                        <div class="module-name">A4 Medium Block</div>
+                    </div>
+                    
+                    <!-- Habitat Modules -->
+                    <div class="module-item" data-module-type="biguniversal_v1">
+                        <div class="module-name">Big Universal V1</div>
+                    </div>
+                    <div class="module-item" data-module-type="bumroof">
+                        <div class="module-name">BUM Roof</div>
+                    </div>
+                    
+                    <!-- Utility Modules -->
+                    <div class="module-item" data-module-type="sunpanels">
+                        <div class="module-name">Solar Panels</div>
+                    </div>
+                </div>
+                
+                <!-- Панель базовых примитивов -->
+                <div class="primitives-panel">
+                    <h6>Basic Primitives</h6>
+                    <div class="primitives-buttons">
+                        <button id="addCubeBtn" class="primitive-btn">
+                            <div class="primitive-icon"></div>
+                            <span>Cube</span>
+                        </button>
+                        <button id="addSphereBtn" class="primitive-btn">
+                            <div class="primitive-icon"></div>
+                            <span>Sphere</span>
+                        </button>
+                        <button id="addCylinderBtn" class="primitive-btn">
+                            <div class="primitive-icon"></div>
+                            <span>Cylinder</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Панель информации о выделении - снизу по центру -->
+    <div id="selectionPanel" class="selection-panel">
+        <div id="selectionInfo">No selection</div>
+    </div>
+
+    <!-- CAD Properties Panel - слева снизу -->
+    <div id="cadPropertiesPanel" class="cad-properties-panel">
+        <div class="panel-header">
+            <h4>CAD Properties</h4>
+            <button id="closeCadPanel" class="close-btn">×</button>
+        </div>
+        
+        <div class="cad-content">
+            <div class="property-group">
+                <h5>Dimensions</h5>
+                <div class="dimension-inputs">
+                    <div class="dimension-input">
+                        <label>Length (X):</label>
+                        <input type="number" id="dimensionX" step="1" min="1" max="100" value="1" class="cad-input">
+                        <span class="unit">units</span>
+                    </div>
+                    <div class="dimension-input">
+                        <label>Width (Y):</label>
+                        <input type="number" id="dimensionY" step="1" min="1" max="100" value="1" class="cad-input">
+                        <span class="unit">units</span>
+                    </div>
+                    <div class="dimension-input">
+                        <label>Height (Z):</label>
+                        <input type="number" id="dimensionZ" step="1" min="1" max="100" value="1" class="cad-input">
+                        <span class="unit">units</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="property-group">
+                <h5>Physical Properties</h5>
+                <div class="physical-properties">
+                    <div class="property-row">
+                        <label>Volume:</label>
+                        <span id="volumeValue">0.00</span>
+                        <span class="unit">m³</span>
+                    </div>
+                    <div class="property-row">
+                        <label>Surface Area:</label>
+                        <span id="surfaceAreaValue">0.00</span>
+                        <span class="unit">m²</span>
+                    </div>
+                    <div class="property-row">
+                        <label>Bounding Box:</label>
+                        <span id="boundingBoxValue">0×0×0</span>
+                        <span class="unit">m</span>
+                    </div>
+                </div>
+            </div>
+
+            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Панель свойств объекта -->
+    <div id="propertiesPanel" class="properties-panel">
+        <div class="panel-header">
+            <h4>Transform</h4>
+            <button id="closePanel" class="close-btn">×</button>
+        </div>
+        
+        <div class="property-group">
+            <h5>Location</h5>
+            <div class="transform-section">
+                <div class="vector-input-group">
+                    <label class="axis-label">X:</label>
+                    <div class="number-input">
+                        <input type="number" id="posX" step="0.1" class="transform-input" readonly>
+                    </div>
+                </div>
+                <div class="vector-input-group">
+                    <label class="axis-label">Y:</label>
+                    <div class="number-input">
+                        <input type="number" id="posY" step="0.1" class="transform-input" readonly>
+                    </div>
+                </div>
+                <div class="vector-input-group">
+                    <label class="axis-label">Z:</label>
+                    <div class="number-input">
+                        <input type="number" id="posZ" step="0.1" class="transform-input" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="property-group">
+            <h4>Rotation</h4>
+            <div class="transform-section">
+                <div class="vector-input-group">
+                    <label class="axis-label">X:</label>
+                    <div class="number-input">
+                        <input type="number" id="rotXInput" step="1" class="transform-input" min="-360" max="360" readonly>
+                    </div>
+                </div>
+                <div class="vector-input-group">
+                    <label class="axis-label">Y:</label>
+                    <div class="number-input">
+                        <input type="number" id="rotYInput" step="1" class="transform-input" min="-360" max="360" readonly>
+                    </div>
+                </div>
+                <div class="vector-input-group">
+                    <label class="axis-label">Z:</label>
+                    <div class="number-input">
+                        <input type="number" id="rotZInput" step="1" class="transform-input" min="-360" max="360" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Убираем Scale и заменяем на Dimensions -->
+        <div class="property-group">
+            <h4>Dimensions</h4>
+            <div class="transform-section">
+                <div class="vector-input-group">
+                    <label class="axis-label">X:</label>
+                    <div class="number-input">
+                        <input type="number" id="dimXInput" step="1" class="transform-input" min="1" max="100" value="1" readonly>
+                    </div>
+                </div>
+                <div class="vector-input-group">
+                    <label class="axis-label">Y:</label>
+                    <div class="number-input">
+                        <input type="number" id="dimYInput" step="1" class="transform-input" min="1" max="100" value="1" readonly>
+                    </div>
+                </div>
+                <div class="vector-input-group">
+                    <label class="axis-label">Z:</label>
+                    <div class="number-input">
+                        <input type="number" id="dimZInput" step="1" class="transform-input" min="1" max="100" value="1" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
