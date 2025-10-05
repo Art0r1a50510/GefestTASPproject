@@ -1,0 +1,449 @@
+/* БАЗОВЫЕ СТИЛИ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* ПАНЕЛЬ ИНСТРУМЕНТОВ */
+#toolbar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.toolbar-btn {
+    background: rgba(40, 40, 40, 0.9);
+    color: white;
+    border: 1px solid #555;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn:hover {
+    background: rgba(60, 60, 60, 0.9);
+    border-color: #777;
+}
+
+/* БИБЛИОТЕКА МОДУЛЕЙ */
+.modules-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(30, 30, 30, 0.95);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    color: white;
+    min-width: 300px;
+    display: none;
+    z-index: 1001;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.panel-header h3, .panel-header h4 {
+    color: white;
+    font-size: 16px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.module-item {
+    background: rgba(50, 50, 50, 0.7);
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.module-item:hover {
+    background: rgba(70, 70, 70, 0.7);
+    border-color: #777;
+}
+
+.module-preview {
+    width: 50px;
+    height: 50px;
+    background: #666;
+    margin: 0 auto 8px;
+    border-radius: 3px;
+}
+
+.module-name {
+    font-size: 11px;
+    color: #ccc;
+}
+
+.coming-soon {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ПРИМИТИВЫ */
+.primitives-panel h6 {
+    color: #aaa;
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.primitives-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.primitive-btn {
+    background: rgba(60, 60, 60, 0.8);
+    border: 1px solid #555;
+    border-radius: 4px;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.primitive-btn:hover {
+    background: rgba(80, 80, 80, 0.8);
+    border-color: #777;
+}
+
+.primitive-icon {
+    width: 24px;
+    height: 24px;
+    background: #888;
+    border-radius: 2px;
+}
+
+.primitive-btn span {
+    font-size: 10px;
+}
+
+/* ПАНЕЛЬ ВЫДЕЛЕНИЯ */
+.selection-panel {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(30, 30, 30, 0.9);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 999;
+}
+
+/* ОБЫЧНАЯ ПАНЕЛЬ СВОЙСТВ */
+.properties-panel {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(30, 30, 30, 0.98);
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+    border: 1px solid #444;
+    min-width: 240px;
+    display: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.property-group {
+    margin-bottom: 15px;
+}
+
+.property-group h4, .property-group h5 {
+    color: #ccc;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.transform-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vector-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.axis-label {
+    color: #aaa;
+    font-size: 12px;
+    min-width: 20px;
+}
+
+.number-input {
+    flex: 1;
+}
+
+.transform-input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #2a2a2a;
+    color: white;
+    font-size: 12px;
+}
+
+.transform-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Стили для перетаскивания и редактирования */
+.transform-input.dragging {
+    background: #333;
+    border-color: #4CAF50;
+}
+
+.transform-input.editing {
+    background: #2a2a2a;
+    cursor: text;
+}
+
+.transform-input.value-changed {
+    background: #1e3a1e;
+    border-color: #4CAF50;
+}
+
+/* CAD PROPERTIES PANEL */
+.cad-properties-panel {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(30, 30, 30, 0.98);
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+    border: 1px solid #444;
+    min-width: 280px;
+    display: none; /* Скрыта по умолчанию через CSS */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.cad-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.property-group h5 {
+    color: #4CAF50;
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.dimension-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dimension-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dimension-input label {
+    color: #ccc;
+    font-size: 12px;
+    min-width: 80px;
+}
+
+.cad-input {
+    flex: 1;
+    padding: 6px 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #2a2a2a;
+    color: white;
+    font-size: 12px;
+}
+
+.cad-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.cad-select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #2a2a2a;
+    color: white;
+    font-size: 12px;
+}
+
+.unit {
+    color: #888;
+    font-size: 11px;
+    min-width: 30px;
+}
+
+.physical-properties,
+.engineering-data {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.property-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+.property-row label {
+    color: #ccc;
+}
+
+.property-row span {
+    color: white;
+    font-weight: 500;
+}
+
+/* Дополнительные стили для библиотеки модулей */
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.module-item {
+    background: rgba(50, 50, 50, 0.8);
+    border: 1px solid #555;
+    border-radius: 6px;
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.module-item:hover {
+    background: rgba(70, 70, 70, 0.9);
+    border-color: #777;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.module-preview {
+    width: 40px;
+    height: 40px;
+    background: #666;
+    margin: 0 auto 8px;
+    border-radius: 4px;
+    border: 1px solid #777;
+}
+
+.module-name {
+    font-size: 11px;
+    color: #ccc;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* Категории модулей */
+.library-category {
+    margin-bottom: 15px;
+}
+
+.category-title {
+    color: #4CAF50;
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid #444;
+    padding-bottom: 4px;
+}
+.material-selection {
+    margin-top: 8px;
+}
+
+.cad-select {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #2a2a2a;
+    color: white;
+    font-size: 12px;
+}
+
+.cad-select:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
